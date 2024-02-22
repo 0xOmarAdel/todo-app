@@ -7,22 +7,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTodo, updateTodo } from "../utils/todosActions";
 
 const TodoForm = ({ setIsModalOpen, todoToEdit }) => {
-  const queryClient = useQueryClient();
-
-  const newTodoMutation = useMutation({
-    mutationFn: createTodo,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
-    },
-  });
-
-  const updateTodoMutation = useMutation({
-    mutationFn: updateTodo,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
-    },
-  });
-
   const {
     register,
     handleSubmit,
@@ -37,25 +21,41 @@ const TodoForm = ({ setIsModalOpen, todoToEdit }) => {
     resolver: zodResolver(createTodoSchema),
   });
 
-  const onSubmit = async (data) => {
-    if (todoToEdit) {
-      await updateTodoMutation.mutate({ _id: todoToEdit._id, ...data });
-    } else {
-      await newTodoMutation.mutate(data);
-    }
+  const queryClient = useQueryClient();
 
-    if (newTodoMutation.isError || updateTodoMutation.isError) {
-      setError("An error occurred while submitting");
-    } else {
+  const newTodoMutation = useMutation({
+    mutationFn: createTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
       reset();
+    },
+    onError: () => {
+      setError("root", { message: "An error occurred while submitting" });
+    },
+  });
 
-      if (setIsModalOpen) setIsModalOpen(false);
+  const updateTodoMutation = useMutation({
+    mutationFn: updateTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      setIsModalOpen(false);
+    },
+    onError: () => {
+      setError("root", { message: "An error occurred while saving" });
+    },
+  });
+
+  const onSubmit = (data) => {
+    if (todoToEdit) {
+      updateTodoMutation.mutate({ _id: todoToEdit._id, ...data });
+    } else {
+      newTodoMutation.mutate(data);
     }
   };
 
   return (
-    <div className="lg:h-fit lg:sticky lg:top-[6.2rem] mb-4 lg:mb-0">
-      <h2 className="text-2xl font-bold mb-4">
+    <div className="lg:h-fit lg:sticky lg:top-[6.2rem] mb-4 lg:mb-0 flex flex-col gap-4">
+      <h2 className="text-2xl font-bold">
         {todoToEdit ? "Edit" : "Create"} Todo
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
@@ -101,6 +101,7 @@ const TodoForm = ({ setIsModalOpen, todoToEdit }) => {
           disabled={isSubmitting || newTodoMutation.isPending}
         />
       </form>
+      {errors.root && <ErrorMessage error={errors.root.message} />}
     </div>
   );
 };
