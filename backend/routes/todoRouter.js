@@ -13,6 +13,6 @@ router.get("/", getAllTodos);
 router.post("/", createTodo);
 router.patch("/:id", updateTodo);
 router.delete("/:id", deleteTodo);
-router.post("/:id/toggleCompleted", toggleCompleted);
+router.patch("/:id/toggleCompleted", toggleCompleted);
 
 module.exports = router;
