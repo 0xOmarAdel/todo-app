@@ -1,11 +1,11 @@
-import { Navigate } from "react-router-dom";
+import LoginPage from "../pages/LoginPage";
 
 const AuthHOC = (WrappedComponent) => {
   const WithAuth = (props) => {
     const user = true;
 
     if (!user) {
-      return <Navigate to="/" />;
+      return <LoginPage />;
     }
 
     return <WrappedComponent {...props} />;
