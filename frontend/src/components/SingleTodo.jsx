@@ -65,7 +65,9 @@ const SingleTodo = ({ todo }) => {
           <MdOutlineDateRange className="shrink-0 text-lg" />
           <div className="flex flex-row flex-wrap items-center gap-1">
             {dateFormatter(todo.dueDate)}
-            <span className="text-sm break-keep">({remainingDays}d left)</span>
+            <span className="text-sm break-keep">
+              ({remainingDays > 0 ? remainingDays : 0}d left)
+            </span>
           </div>
         </span>
         <div className="flex flex-row flex-wrap sm:flex-nowrap gap-2">
