@@ -45,15 +45,18 @@ const SingleTodo = ({ todo }) => {
           todo.isCompleted == true && "line-through"
         }`}
       >
-        {
+        <button
+          onClick={toggleCompleted}
+          disabled={toggleCompletedTodo.isPending}
+        >
           <IoMdCheckmarkCircleOutline
             className={`absolute top-2 right-2 cursor-pointer ${
               todo.isCompleted ? "text-green-500" : "text-gray-600"
             }`}
             size={24}
-            onClick={toggleCompleted}
           />
-        }
+        </button>
+
         {todo.title}
       </h2>
       <p className="mt-2 text-gray-700">{todo.description}</p>
@@ -66,7 +69,11 @@ const SingleTodo = ({ todo }) => {
           </div>
         </span>
         <div className="flex flex-row flex-wrap sm:flex-nowrap gap-2">
-          <Button text="Delete" onClick={deleteTodoHandler} />
+          <Button
+            text="Delete"
+            onClick={deleteTodoHandler}
+            disabled={deleteTodoMutation.isPending}
+          />
         </div>
       </div>
     </div>
