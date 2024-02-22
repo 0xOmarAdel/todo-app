@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import TasksPage from "./pages/TasksPage";
+import TodosPage from "./pages/TodosPage";
 import MainLayout from "./layout/MainLayout";
 
 const App = () => {
@@ -7,7 +7,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route path="/" element={<TasksPage />} />
+          <Route path="/" element={<TodosPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
