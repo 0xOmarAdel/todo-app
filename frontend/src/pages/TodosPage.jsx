@@ -1,11 +1,12 @@
 import TodoList from "../components/TodoList";
 import TodoForm from "../components/TodoForm";
 import { useState } from "react";
+import fakeTodos from "../data/fakeTodos";
 
 const TodosPage = () => {
-  const [todos, setTasks] = useState([]);
-  const [loading, setLoading] = useState([]);
-  const [error, setError] = useState([]);
+  const [todos, setTasks] = useState(fakeTodos);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   return (
     <div className="mt-24 w-full px-8 grid grid-cols-1 lg:grid-cols-3 lg:gap-10">
@@ -32,7 +33,7 @@ const TodosPage = () => {
               There&apos;re No Todos To Show!
             </p>
           ) : (
-            <TodoList tasks={todos} />
+            <TodoList todos={todos} />
           )}
         </div>
       </div>
