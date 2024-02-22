@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import Avatar from "../ui/Avatar";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const user = useSelector((state) => state.auth.user);
+
   return (
     <nav className="fixed top-0 z-50 w-full bg-white px-4 border-gray-200">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
@@ -11,7 +14,9 @@ const Navbar = () => {
           <p className="font-semibold text-xl">Todo App</p>
         </Link>
         <div className="flex flex-row items-center">
-          <span className="hidden lg:block mr-4 font-medium">Hello, Peter</span>
+          <span className="hidden lg:block mr-4 font-medium">
+            Hello, {user?.name}
+          </span>
           <Avatar />
         </div>
       </div>
