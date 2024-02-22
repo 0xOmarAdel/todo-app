@@ -25,9 +25,6 @@ const authenticateUser = require("./middleware/authMiddleware");
 // json middleware
 app.use(express.json());
 
-// for proxy
-app.set("trust proxy", 1);
-
 // extra packages
 app.use(helmet());
 app.use(cors());
