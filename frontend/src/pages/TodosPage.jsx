@@ -26,7 +26,7 @@ const TodosPage = () => {
         <hr className="my-4" />
         {isError && <ErrorMessage error="An error occurred." />}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 pb-8">
-          {!isLoading ? (
+          {isLoading ? (
             <TodoSkeletons number={3} />
           ) : data?.todos.length === 0 ? (
             <p className="text-gray-800 font-medium">
