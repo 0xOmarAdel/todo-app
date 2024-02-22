@@ -40,6 +40,10 @@ const SignupPage = () => {
         {errors.root && <ErrorMessage error={errors.root.message} />}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-1">
+            <input {...register("name")} placeholder="Name" />
+            {errors.name && <ErrorMessage error={errors.name.message} />}
+          </div>
+          <div className="flex flex-col gap-1">
             <input {...register("email")} placeholder="Email" />
             {errors.email && <ErrorMessage error={errors.email.message} />}
           </div>
