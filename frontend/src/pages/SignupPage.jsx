@@ -63,7 +63,7 @@ const SignupPage = () => {
             text={isSubmitting ? "Loading..." : "Sign Up"}
             disabled={isSubmitting}
           />
-          <p>
+          <p className="text-gray-600">
             Already have an account?{" "}
             <Link to="/" className="text-sky-500 font-medium">
               Log In
