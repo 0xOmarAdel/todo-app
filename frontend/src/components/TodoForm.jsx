@@ -1,49 +1,73 @@
-import { useState } from "react";
-import Input from "../ui/Input";
 import Button from "../ui/Button";
+import ErrorMessage from "../ui/ErrorMessage";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import createTodoSchema from "../schema/createTodoSchema";
+import { useMutation } from "@tanstack/react-query";
+import { createTodo } from "../utils/todosActions";
 
 const TodoForm = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const newTodoMutation = useMutation({
+    mutationFn: createTodo,
+  });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (title && description && dueDate) {
-      console.log(title, description, dueDate);
-      setTitle("");
-      setDescription("");
-      setDueDate("");
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(createTodoSchema),
+  });
+
+  const onSubmit = async (data) => {
+    await newTodoMutation.mutate(data);
+    if (newTodoMutation.isError) {
+      setError("An error occurred while submitting");
+    } else {
+      reset();
     }
   };
 
   return (
     <div className="lg:h-fit lg:sticky lg:top-[6.2rem] mb-4 lg:mb-0 pb-12 lg:pb-0">
       <h2 className="text-2xl font-bold mb-4">Create Todo</h2>
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <Input
-          id="title"
-          name="title"
-          placeholder="Enter todo title"
-          value={title}
-          onChange={setTitle}
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+        <div className="flex flex-col gap-1">
+          <input
+            className="appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:border-sky-500"
+            {...register("title")}
+            placeholder="Todo Title"
+          />
+          {errors.title && <ErrorMessage error={errors.title.message} />}
+        </div>
+        <div className="flex flex-col gap-1">
+          <input
+            className="appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:border-sky-500"
+            {...register("description")}
+            placeholder="Toto Description"
+          />
+          {errors.description && (
+            <ErrorMessage error={errors.description.message} />
+          )}
+        </div>
+        <div className="flex flex-col gap-1">
+          <input
+            className="appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:border-sky-500"
+            type="date"
+            {...register("dueDate")}
+            placeholder="Due Date"
+          />
+          {errors.dueDate && <ErrorMessage error={errors.dueDate.message} />}
+        </div>
+        <Button
+          type="submit"
+          text={
+            isSubmitting || newTodoMutation.isPending ? "Loading..." : "Submit"
+          }
+          disabled={isSubmitting || newTodoMutation.isPending}
         />
-        <Input
-          id="description"
-          name="description"
-          placeholder="Enter todo description"
-          value={description}
-          onChange={setDescription}
-        />
-        <Input
-          type="date"
-          id="dueDate"
-          name="dueDate"
-          value={dueDate}
-          onChange={setDueDate}
-        />
-
-        <Button type="submit" text="Create" />
       </form>
     </div>
   );

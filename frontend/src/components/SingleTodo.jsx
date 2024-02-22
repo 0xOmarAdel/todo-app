@@ -2,38 +2,45 @@ import dateFormatter from "../utils/dateFormatter";
 import { calculateDaysDifference } from "../utils/calculateDaysDifference";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { MdOutlineDateRange } from "react-icons/md";
-import { useState } from "react";
 import Button from "../ui/Button";
+import { useMutation } from "@tanstack/react-query";
+import { deleteTodo, toggleCompletedTodo } from "../utils/todosActions";
 
 const SingleTodo = ({ todo }) => {
+  const deleteTodoMutation = useMutation({
+    mutationFn: deleteTodo,
+  });
+
+  const toggleCompletedMutation = useMutation({
+    mutationFn: toggleCompletedTodo,
+  });
+
   const today = new Date().toISOString().split("T")[0];
   const remainingDays = calculateDaysDifference(today, todo.dueDate);
 
-  const [todoIsCompleted, setTodoIsCompleted] = useState(todo.isCompleted);
-
   const toggleCompleted = () => {
-    setTodoIsCompleted((prevState) => !prevState);
+    toggleCompletedMutation.mutate(todo._id);
   };
 
   const deleteTodoHandler = () => {
-    console.log("deleteTodoHandler");
+    deleteTodoMutation.mutate(todo._id);
   };
 
   return (
     <div
       className={`group relative h-full  ${
-        todoIsCompleted ? "opacity-70 bg-green-200" : "bg-white"
+        todo.isCompleted ? "opacity-70 bg-green-200" : "bg-white"
       } rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-200 ease-in-out p-4`}
     >
       <h2
         className={`text-xl font-bold ${
-          todoIsCompleted == true && "line-through"
+          todo.isCompleted == true && "line-through"
         }`}
       >
         {
           <IoMdCheckmarkCircleOutline
             className={`absolute top-2 right-2 cursor-pointer ${
-              todoIsCompleted ? "text-green-500" : "text-gray-600"
+              todo.isCompleted ? "text-green-500" : "text-gray-600"
             }`}
             size={24}
             onClick={toggleCompleted}
