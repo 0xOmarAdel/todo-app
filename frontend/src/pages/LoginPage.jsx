@@ -17,11 +17,6 @@ const LoginPage = () => {
     setError,
     formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
     resolver: zodResolver(loginSchema),
   });
 

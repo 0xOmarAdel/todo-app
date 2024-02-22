@@ -18,11 +18,6 @@ const SignupPage = () => {
     setError,
     formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
     resolver: zodResolver(signupSchema),
   });
 
