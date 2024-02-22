@@ -61,7 +61,6 @@ const SingleTodo = ({ todo }) => {
             size={24}
           />
         </button>
-
         {todo.title}
       </h2>
       <p className="mt-2 text-gray-700">{todo.description}</p>

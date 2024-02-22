@@ -25,11 +25,9 @@ const SignupPage = () => {
     const dispatchAction = await dispatch(signup(data));
 
     if (dispatchAction.payload.error) {
-      console.log(dispatchAction.payload);
       setError("root", { message: dispatchAction.payload.error });
     } else {
       navigate("/");
-      console.log("test");
     }
   };
 
