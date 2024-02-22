@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import Avatar from "../ui/Avatar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { IoMdExit } from "react-icons/io";
+import { logout } from "../store/slices/userAuthSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.auth.user);
 
   return (
@@ -18,6 +22,9 @@ const Navbar = () => {
             Hello, {user?.name}
           </span>
           <Avatar />
+          <button onClick={() => dispatch(logout())}>
+            <IoMdExit className="text-2xl text-gray-500" />
+          </button>
         </div>
       </div>
     </nav>
