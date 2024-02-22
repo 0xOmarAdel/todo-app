@@ -63,6 +63,7 @@ const TodoForm = () => {
             type="date"
             {...register("dueDate")}
             placeholder="Due Date"
+            min={new Date().toISOString().split("T")[0]}
           />
           {errors.dueDate && <ErrorMessage error={errors.dueDate.message} />}
         </div>
