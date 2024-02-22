@@ -8,12 +8,12 @@ const initialState = {
   user: null,
 };
 
-export const register = createAsyncThunk(
+export const signup = createAsyncThunk(
   "auth/register",
   async (registrationData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/users/register`,
+        `${import.meta.env.VITE_API_URL}/auth/register`,
         registrationData
       );
       if (response.data.access_token) {
@@ -39,7 +39,7 @@ export const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/users/login`,
+        `${import.meta.env.VITE_API_URL}/auth/login`,
         credentials
       );
       if (response.data.access_token) {
@@ -76,7 +76,7 @@ const userAuthSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(signup.fulfilled, (state, action) => {
         state.user = action.payload;
       });
   },
