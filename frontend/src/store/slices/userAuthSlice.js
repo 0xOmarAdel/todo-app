@@ -16,11 +16,11 @@ export const signup = createAsyncThunk(
         `${import.meta.env.VITE_API_URL}/auth/register`,
         registrationData
       );
-      if (response.data.access_token) {
-        localStorage.setItem("token", response.data.access_token);
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
         axios.defaults.headers.common[
           "Authorization"
-        ] = `Bearer ${response.data.access_token}`;
+        ] = `Bearer ${response.data.token}`;
       }
 
       return response.data.user;
@@ -42,11 +42,11 @@ export const login = createAsyncThunk(
         `${import.meta.env.VITE_API_URL}/auth/login`,
         credentials
       );
-      if (response.data.access_token) {
-        localStorage.setItem("token", response.data.access_token);
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
         axios.defaults.headers.common[
           "Authorization"
-        ] = `Bearer ${response.data.access_token}`;
+        ] = `Bearer ${response.data.token}`;
       }
       return response.data.user;
     } catch (error) {
