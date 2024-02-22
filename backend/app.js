@@ -31,8 +31,8 @@ app.use(cors());
 app.use(xss());
 
 // routes
-app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/todos", authenticateUser, todoRouter);
+app.use("/auth", authRouter);
+app.use("/todos", authenticateUser, todoRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
