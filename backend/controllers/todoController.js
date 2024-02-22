@@ -62,9 +62,27 @@ const deleteTodo = async (req, res) => {
   res.status(StatusCodes.OK).send();
 };
 
+const toggleCompleted = async (req, res) => {
+  const user = req.user;
+  const todoId = req.params.id;
+
+  const todo = await Todo.findOne({ _id: todoId, createdBy: user.userId });
+
+  if (!todo) {
+    throw new NotFoundError(`No todo with id ${todoId}`);
+  }
+
+  todo.isCompleted = !todo.isCompleted;
+
+  await todo.save();
+
+  res.status(StatusCodes.OK).json({ todo });
+};
+
 module.exports = {
   getAllTodos,
   createTodo,
   updateTodo,
   deleteTodo,
+  toggleCompleted,
 };

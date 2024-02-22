@@ -6,11 +6,13 @@ const {
   createTodo,
   updateTodo,
   deleteTodo,
+  toggleCompleted,
 } = require("../controllers/todoController");
 
 router.get("/", getAllTodos);
 router.post("/", createTodo);
 router.patch("/:id", updateTodo);
 router.delete("/:id", deleteTodo);
+router.post("/:id/toggleCompleted", toggleCompleted);
 
 module.exports = router;
