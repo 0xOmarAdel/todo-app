@@ -26,7 +26,7 @@ export const signup = createAsyncThunk(
       return response.data.user;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        return rejectWithValue(error.response.data.message);
+        return rejectWithValue(error.response.data.msg);
       } else {
         return rejectWithValue("An error occurred while registering.");
       }
@@ -51,7 +51,7 @@ export const login = createAsyncThunk(
       return response.data.user;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        return rejectWithValue(error.response.data.message);
+        return rejectWithValue(error.response.data.msg);
       } else {
         return rejectWithValue("An error occurred while logging in.");
       }
