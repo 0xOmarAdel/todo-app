@@ -3,17 +3,23 @@ const { BadRequestError, UnauthenticatedError } = require("../errors");
 const User = require("../models/UserModel");
 
 const register = async (req, res) => {
-  const user = await User.create({ ...req.body });
-  const token = user.createJWT();
+  const { name, email, password } = req.body;
 
-  res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
+  if (!name || !email || !password) {
+    throw new BadRequestError("Please provide all the required fields.");
+  }
+
+  const newUser = await User.create({ name, email, password });
+  const token = newUser.createJWT();
+
+  res.status(StatusCodes.CREATED).json({ user: { name: newUser.name }, token });
 };
 
 const login = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    throw new BadRequestError("Please provide email and password");
+    throw new BadRequestError("Please provide all the required fields.");
   }
 
   const user = await User.findOne({ email });
