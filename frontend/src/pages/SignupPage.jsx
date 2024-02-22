@@ -5,11 +5,12 @@ import ErrorMessage from "../ui/ErrorMessage";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import signupSchema from "../schema/signupSchema";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "../ui/Card";
 
 const SignupPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -28,7 +29,13 @@ const SignupPage = () => {
   const onSubmit = async (data) => {
     const dispatchAction = await dispatch(signup(data));
 
-    setError("root", { message: dispatchAction.payload });
+    if (dispatchAction.payload.error) {
+      console.log(dispatchAction.payload);
+      setError("root", { message: dispatchAction.payload.error });
+    } else {
+      navigate("/");
+      console.log("test");
+    }
   };
 
   return (

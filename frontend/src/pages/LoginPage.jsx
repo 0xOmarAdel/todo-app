@@ -28,7 +28,10 @@ const LoginPage = () => {
   const onSubmit = async (data) => {
     const dispatchAction = await dispatch(login(data));
 
-    setError("root", { message: dispatchAction.payload });
+    if (dispatchAction.payload.error) {
+      console.log(dispatchAction.payload);
+      setError("root", { message: dispatchAction.payload.error });
+    }
   };
 
   return (
