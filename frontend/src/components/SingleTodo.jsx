@@ -3,16 +3,24 @@ import { calculateDaysDifference } from "../utils/calculateDaysDifference";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { MdOutlineDateRange } from "react-icons/md";
 import Button from "../ui/Button";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTodo, toggleCompletedTodo } from "../utils/todosActions";
 
 const SingleTodo = ({ todo }) => {
+  const queryClient = useQueryClient();
+
   const deleteTodoMutation = useMutation({
     mutationFn: deleteTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
   });
 
   const toggleCompletedMutation = useMutation({
     mutationFn: toggleCompletedTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
   });
 
   const today = new Date().toISOString().split("T")[0];

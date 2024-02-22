@@ -3,12 +3,17 @@ import ErrorMessage from "../ui/ErrorMessage";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import createTodoSchema from "../schema/createTodoSchema";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTodo } from "../utils/todosActions";
 
 const TodoForm = () => {
+  const queryClient = useQueryClient();
+
   const newTodoMutation = useMutation({
     mutationFn: createTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
   });
 
   const {
