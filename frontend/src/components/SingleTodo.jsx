@@ -5,6 +5,9 @@ import { MdOutlineDateRange } from "react-icons/md";
 import Button from "../ui/Button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTodo, toggleCompletedTodo } from "../utils/todosActions";
+import { useState } from "react";
+import Modal from "../ui/Modal";
+import TodoForm from "./TodoForm";
 
 const SingleTodo = ({ todo }) => {
   const queryClient = useQueryClient();
@@ -33,6 +36,8 @@ const SingleTodo = ({ todo }) => {
   const deleteTodoHandler = () => {
     deleteTodoMutation.mutate(todo._id);
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div
@@ -71,6 +76,14 @@ const SingleTodo = ({ todo }) => {
           </div>
         </span>
         <div className="flex flex-row flex-wrap sm:flex-nowrap gap-2">
+          {!todo.isCompleted && (
+            <>
+              <Button text="Edit" onClick={() => setIsModalOpen(true)} />
+              <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
+                <TodoForm setIsModalOpen={setIsModalOpen} todoToEdit={todo} />
+              </Modal>
+            </>
+          )}
           <Button
             text="Delete"
             onClick={deleteTodoHandler}

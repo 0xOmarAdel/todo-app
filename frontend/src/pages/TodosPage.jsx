@@ -12,7 +12,7 @@ const TodosPage = () => {
   });
 
   return (
-    <div className="mt-24 w-full px-8 grid grid-cols-1 lg:grid-cols-3 lg:gap-10">
+    <div className="mt-24 w-full px-8 grid grid-cols-1 lg:grid-cols-3 gap-y-10 lg:gap-x-10">
       <TodoForm />
       <div className="col-span-2">
         <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-0">
