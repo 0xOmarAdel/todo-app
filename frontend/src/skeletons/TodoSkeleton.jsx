@@ -4,8 +4,8 @@ const TodoSkeleton = () => {
       <div className="w-full flex flex-col gap-5 sm:p-2">
         <div className="flex flex-col gap-3">
           <div className="bg-gray-200 w-full animate-pulse h-12 rounded-2xl"></div>
-          <div className="bg-gray-200 w-full animate-pulse h-5 rounded-2xl"></div>
-          <div className="bg-gray-200 w-full animate-pulse h-5 rounded-2xl"></div>
+          <div className="bg-gray-200 w-full animate-pulse h-6 rounded-2xl"></div>
+          <div className="bg-gray-200 w-full animate-pulse h-6 rounded-2xl"></div>
         </div>
         <div className="flex gap-3 justify-between">
           <div className="bg-gray-200 w-52 h-8 animate-pulse rounded-full"></div>
