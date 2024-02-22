@@ -24,7 +24,9 @@ const TodosPage = () => {
           </h1>
         </div>
         <hr className="my-4" />
-        {isError && <ErrorMessage error="An error occurred." />}
+        {isError && (
+          <ErrorMessage error="An error occurred while fetching your todos" />
+        )}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 pb-8">
           {isLoading ? (
             <TodoSkeletons number={3} />
