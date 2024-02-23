@@ -30,7 +30,7 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen w-full flex flex-row justify-center items-center">
-      <Card className="w-80 flex flex-col gap-8">
+      <Card className="w-fit flex flex-col gap-8">
         <h1 className="text-4xl text-gray-700 font-bold text-center">Login</h1>
         {errors.root && <ErrorMessage error={errors.root.message} />}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">

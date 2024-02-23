@@ -33,7 +33,7 @@ const SignupPage = () => {
 
   return (
     <div className="min-h-screen w-full flex flex-row justify-center items-center">
-      <Card className="w-80 flex flex-col gap-8">
+      <Card className="w-fit flex flex-col gap-8">
         <h1 className="text-4xl text-gray-700 font-bold text-center">
           Sign Up
         </h1>
