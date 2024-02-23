@@ -15,13 +15,13 @@ const Navbar = () => {
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center space-x-3">
           <img src={logo} className="h-12" alt="Logo" />
-          <p className="font-semibold text-xl">Todo App</p>
+          <p className="text-2xl text-gray-700 font-semibold">Todo App</p>
         </Link>
-        <div className="flex flex-row items-center">
-          <span className="hidden lg:block mr-4 font-medium">
-            Hello, {user?.name}
-          </span>
-          <Avatar />
+        <div className="flex flex-row items-center gap-2">
+          <div className="hidden lg:flex lg:flex-row lg:items-center lg:gap-2">
+            <span className="text-lg font-medium">Hello, {user?.name}</span>
+            <Avatar />
+          </div>
           <button onClick={() => dispatch(logout())}>
             <IoMdExit className="text-2xl text-gray-500" />
           </button>

@@ -32,7 +32,7 @@ const TodosPage = () => {
       <TodoForm />
       <div className="col-span-2">
         <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-0">
-          <h1 className="flex flex-row items-center gap-2 text-3xl font-bold">
+          <h1 className="flex flex-row items-center gap-2 text-3xl text-gray-700 font-semibold">
             Todos
             {todos?.length > 0 && (
               <span className="text-xl">({todos?.length})</span>
@@ -49,7 +49,7 @@ const TodosPage = () => {
         {isError && (
           <ErrorMessage error="An error occurred while fetching your todos" />
         )}
-        <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-10">
           {isLoading ? (
             <TodoSkeletons number={3} />
           ) : todos?.length === 0 ? (

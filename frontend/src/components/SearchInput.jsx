@@ -11,7 +11,7 @@ const SearchInput = ({ searchQuery, setSearchQuery }) => {
       </div>
       <input
         type="text"
-        placeholder="Search for todos"
+        placeholder="Search.."
         value={searchQuery}
         onChange={handleSearchChange}
         className="pr-14"

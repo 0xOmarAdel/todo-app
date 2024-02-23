@@ -55,7 +55,7 @@ const TodoForm = ({ setIsModalOpen, todoToEdit }) => {
 
   return (
     <div className="lg:h-fit lg:sticky lg:top-[6.2rem] mb-4 lg:mb-0 flex flex-col gap-4">
-      <h2 className="text-2xl font-bold">
+      <h2 className="text-2xl text-gray-700 font-semibold">
         {todoToEdit ? "Edit" : "Create"} Todo
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">

@@ -46,7 +46,7 @@ const SingleTodo = ({ todo }) => {
       } rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-200 ease-in-out p-4`}
     >
       <h2
-        className={`text-xl font-bold ${
+        className={`text-xl font-semibold ${
           todo.isCompleted == true && "line-through"
         }`}
       >
