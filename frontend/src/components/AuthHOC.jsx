@@ -3,6 +3,7 @@ import LoginPage from "../pages/LoginPage";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { setUser } from "../store/slices/userAuthSlice";
+import Loading from "../ui/Loading";
 
 const AuthHOC = (WrappedComponent) => {
   const WithAuth = (props) => {
@@ -34,7 +35,7 @@ const AuthHOC = (WrappedComponent) => {
       fetchToken();
     }, [dispatch, token]);
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <Loading />;
 
     if (!user) return <LoginPage />;
 
