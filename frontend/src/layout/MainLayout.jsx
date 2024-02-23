@@ -6,7 +6,9 @@ const MainLayout = () => {
   const AuthenticatedLayout = AuthHOC(() => (
     <>
       <Navbar />
-      <Outlet />
+      <div className="pb-10">
+        <Outlet />
+      </div>
     </>
   ));
 
