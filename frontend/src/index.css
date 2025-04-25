@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+body {
+  font-family: "Poppins";
+}
+
+input {
+  @apply appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:border-sky-500;
+}
